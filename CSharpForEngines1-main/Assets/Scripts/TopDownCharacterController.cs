@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TopDownCharacterController : MonoBehaviour, I_Shot
 {
@@ -50,10 +51,23 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
     private bool isGlitching = false;
     private bool canGlitch = true;
 
+    IEnumerator LoadAsyncScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameOver");
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+    public void LoadGameOver()
+    {
+        StartCoroutine(LoadAsyncScene());
+    }
+
     //Ability coroutine
     IEnumerator GlitchCooldown()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
         canGlitch = true;
     }
 
@@ -61,7 +75,7 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
     {
         isGlitching = true;
         spriteRen.color = Color.yellow;
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(.2f);
         spriteRen.color = Color.white;
         isGlitching = false;
     }
@@ -110,11 +124,12 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
             if (!isGlitching)
             {
                 health -= damage;
-                Debug.Log(health);
+                Debug.Log(damage);
                 if (health <= 0)
                 {
                     dead = true;
                     Debug.Log("Dead!");
+                    LoadGameOver();
                 }
                 spriteRen.color = Color.red;
                 StartCoroutine(DamageRecover());

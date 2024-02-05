@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour
+public class GameOverManager : MonoBehaviour
 {
-    public GameObject controlsPanel;
-    bool isControlsPanelOpen = false;
 
     IEnumerator LoadAsyncScene()
     {
@@ -21,13 +18,16 @@ public class MenuManager : MonoBehaviour
     {
         StartCoroutine(LoadAsyncScene());
     }
-    public void OpenAndCloseControlsPanel() 
+
+    // Start is called before the first frame update
+    void Start()
     {
-        isControlsPanelOpen = !isControlsPanelOpen;
-        controlsPanel.SetActive(isControlsPanelOpen);
+        
     }
-    public void Quit()
+
+    // Update is called once per frame
+    void Update()
     {
-          
+        
     }
 }
