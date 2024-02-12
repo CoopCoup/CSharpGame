@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class TopDownCharacterController : MonoBehaviour, I_Shot
@@ -136,7 +138,14 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
             }
             else
             {
-                ammoCount++;
+                if (ammoCount >= 5)
+                {
+                    ammoCount = 5;
+                }
+                else
+                {
+                    ammoCount++;
+                }
             }
         }
         
