@@ -98,6 +98,7 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
         
         yield return new WaitForSeconds(.5f);
         recovering = false;
+        canGlitch = true;
         if (!isGlitching)
         {
             spriteRen.color = Color.white;
@@ -127,6 +128,8 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
             {
                 health -= damage;
                 Debug.Log(damage);
+                recovering=true;
+                canGlitch = false;
                 if (health <= 0)
                 {
                     dead = true;

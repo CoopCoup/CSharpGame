@@ -11,6 +11,7 @@ public class TurretLogic : MonoBehaviour, I_Shot
     [SerializeField] private float bulletSpeed;
 
     private Vector2 direction;
+    [SerializeField] private float firingDelay;
 
     public void Hit(int damage)
     {
@@ -37,7 +38,7 @@ public class TurretLogic : MonoBehaviour, I_Shot
     IEnumerator FireDelay()
     {
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(firingDelay);
         Fire();
     }
 
