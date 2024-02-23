@@ -6,8 +6,8 @@ public class TurretLogic : MonoBehaviour, I_Shot
 {
 
     //bullet setup
-    public GameObject bulletGunPoint;
-    public GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletGunPoint;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
 
     private Vector2 direction;

@@ -13,7 +13,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - HUD
   - 
   - 
   - 
@@ -41,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Level
+    uniqueID: 1125899909
+    locked: 0
+  - name: HUD
+    uniqueID: 3807165145
+    locked: 0
+  - name: Player
+    uniqueID: 1678206803
     locked: 0

@@ -12,6 +12,9 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
 
     //reference sprite renderer
     private SpriteRenderer spriteRen;
+
+    //reference animator
+    private Animator animator;
     
     //Reference to attached rigidbody 2D
     private Rigidbody2D rb;
@@ -76,10 +79,11 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
     IEnumerator GlitchState()
     {
         isGlitching = true;
-        spriteRen.color = Color.yellow;
-        yield return new WaitForSeconds(.2f);
-        spriteRen.color = Color.white;
+        animator.SetBool("isGlitching", true);
+        yield return new WaitForSeconds(.3f);
+
         isGlitching = false;
+        animator.SetBool("isGlitching", false);
     }
     
     
@@ -101,6 +105,7 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
         canGlitch = true;
         if (!isGlitching)
         {
+            animator.SetBool("isGlitching", false);
             spriteRen.color = Color.white;
         }
         
@@ -137,6 +142,7 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
                     LoadGameOver();
                 }
                 spriteRen.color = Color.red;
+                animator.SetBool("isGlitching", true);
                 StartCoroutine(DamageRecover());
             }
             else
@@ -165,6 +171,7 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
         //Get the attached components so we can use them later
         rb = GetComponent<Rigidbody2D>();
         spriteRen = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
 
