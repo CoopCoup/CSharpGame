@@ -15,6 +15,6 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = player.transform.position + offset;     
+        gameObject.transform.position = player.transform.position + offset;    
     }
 }

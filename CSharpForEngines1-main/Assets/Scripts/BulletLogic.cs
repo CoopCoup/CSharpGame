@@ -15,10 +15,10 @@ public class BulletLogic : MonoBehaviour, I_Shot
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy Hit!");
             if (collision.gameObject.TryGetComponent(out I_Shot shotObject))
             {
                 shotObject.Hit(damage);
+                Destroy(gameObject);
             }
         }
         else if (collision.CompareTag("Player"))
@@ -26,13 +26,17 @@ public class BulletLogic : MonoBehaviour, I_Shot
             if (collision.gameObject.TryGetComponent(out I_Shot shotObject))
             {
                 shotObject.Hit(damage);
+                Destroy(gameObject);
             }
         }
+        else if (collision.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
 
-
-        Destroy(gameObject);
+        
     }
-
+    
     public void Hit(int damage)
     {
         Destroy(gameObject);
@@ -48,4 +52,6 @@ public class BulletLogic : MonoBehaviour, I_Shot
     {
         
     }
+
+   
 }

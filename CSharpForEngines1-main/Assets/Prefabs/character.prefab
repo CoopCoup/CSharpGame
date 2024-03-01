@@ -54,6 +54,7 @@ MonoBehaviour:
   bulletGunPoint: {fileID: 8659544031106208207}
   bulletPrefab: {fileID: 7324143682706382549, guid: da1eaa10088084947bfcdce6dfc1e467, type: 3}
   bulletSpeed: 10
+  ammoCount: 0
 --- !u!50 &7068223198832022995
 Rigidbody2D:
   serializedVersion: 4
@@ -223,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8659544031106208207}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.97, z: 0}
+  m_LocalPosition: {x: -0.003, y: 0.649, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

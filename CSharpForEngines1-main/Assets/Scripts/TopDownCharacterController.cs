@@ -6,8 +6,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
-public class TopDownCharacterController : MonoBehaviour, I_Shot
+public class TopDownCharacterController : MonoBehaviour, I_Shot, I_Heal
 {
+    public static event Action OnPlayerDamaged;
+    public static event Action OnAmmoChange;
+    
     #region Framework Stuff
 
     //reference sprite renderer
@@ -26,9 +29,14 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
     private float playerSpeed = 1f;
 
     //Health and damage
-    [SerializeField] private int health = 3;
-    private bool dead = false;
+    public int health = 3;
     private bool recovering = false;
+
+    public void Heal()
+    {
+        health += 1;
+        OnPlayerDamaged?.Invoke();
+    }
 
     [Header("Movement parameters")]
     //The maximum speed the player can move
@@ -93,8 +101,7 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
     [SerializeField] private float bulletSpeed;
 
     //firing setup
-    private bool canFire = false;
-    private int ammoCount = 0;
+    public int ammoCount = 0;
 
     //getting hit delay
     IEnumerator DamageRecover()
@@ -132,13 +139,11 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
             if (!isGlitching)
             {
                 health -= damage;
-                Debug.Log(damage);
-                recovering=true;
+                OnPlayerDamaged?.Invoke();
+                recovering =true;
                 canGlitch = false;
                 if (health <= 0)
                 {
-                    dead = true;
-                    Debug.Log("Dead!");
                     LoadGameOver();
                 }
                 spriteRen.color = Color.red;
@@ -150,16 +155,21 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
                 if (ammoCount >= 5)
                 {
                     ammoCount = 5;
+                    OnAmmoChange?.Invoke();
                 }
                 else
                 {
                     ammoCount++;
+                    OnAmmoChange?.Invoke();
                 }
             }
         }
         
 
     }
+
+
+  
 
 
 
@@ -199,11 +209,16 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
 
     }
 
+
+    
+
+
     /// <summary>
     /// When the update loop is called, it runs every frame, ca run more or less frequently depending on performance. Used to catch changes in variables or input.
     /// </summary>
     private void Update()
     {
+        
         // read input from WASD keys
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
@@ -264,10 +279,11 @@ public class TopDownCharacterController : MonoBehaviour, I_Shot
             {
                 Fire();
                 ammoCount--;
+                OnAmmoChange?.Invoke();
             }
             else
             {
-                Debug.Log("Out of Ammo");
+                
             }
         }
 
